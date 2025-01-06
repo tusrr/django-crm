@@ -1,0 +1,14 @@
+To-do List
+
+- create venv install django create project
+-base pages/templates
+    -create app for pages   
+    -create base templates
+    -create front page
+    -create about page
+-Authentication
+-simple dashboard
+-
+-
+-
+-
