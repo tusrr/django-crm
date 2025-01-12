@@ -1,1 +1,9 @@
 /env
+*.pyc
+*.pyo
+__pycache__/
+*.cache
+*.log
+*.bak
+*.swp
+*.tmp

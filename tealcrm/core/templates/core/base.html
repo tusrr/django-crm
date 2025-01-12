@@ -21,6 +21,13 @@
         </div>
         <div class="space-x-4">
             {% if request.user.is_authenticated %}
+            <a href="{% url 'dashboard' %}" class="py-4 px-6 bg-teal-600 rounded-xl text-white">
+                Dashboard
+            </a>
+
+            <a href="{% url 'leads_list' %}" class="py-4 px-6 bg-teal-600 rounded-xl text-white">
+                Leads
+            </a>
             <a href="{% url 'logout' %}" class="py-4 px-6 bg-red-600 rounded-xl text-white">
                 Log out
             </a>
@@ -35,6 +42,20 @@
             {% endif %}
         </div>
     </nav>
+
+
+
+    {% if messages %}
+    <div class="py-4 px-4">
+        {% for message in messages %}
+        <div class="px-3 py-3 bg-teal-300 text-white">
+            {{message}}
+        </div>
+        {% endfor %}
+    </div>
+
+    {% endif %}
+
 
     {% block content %}
     {% endblock %}
