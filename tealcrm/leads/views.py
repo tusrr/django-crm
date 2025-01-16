@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.shortcuts import render,redirect, get_object_or_404
 from .forms import AddLeadForm
 from .models import Lead
+from client.models import Client
 # Create your views here.
 
 @login_required
@@ -67,3 +68,22 @@ def add_lead(request):
     else:
         form= AddLeadForm()
     return render(request, 'leads/add_lead.html',{'form':form})
+
+
+@login_required
+def convert_to_client(request,pk):
+    lead =get_object_or_404(Lead,created_by=request.user,pk=pk)
+    
+    client=Client.objects.create(
+        name=lead.name,
+        email=lead.email,
+        description=lead.description,
+        created_by=request.user
+    )
+
+    lead.converted_to_client=True
+    lead.save()
+
+    messages.success(request,'The Lead was converted to Client')
+
+    return redirect('leads_list')

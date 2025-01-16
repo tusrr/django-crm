@@ -28,6 +28,7 @@
     <hr class="my-4">
 
 
+    <a class=" py-3 px-3 ml-3 rounded-xl bg-blue-500" href="{% url 'leads_convert' lead.id %}">Convert to Client</a>
     <a class=" py-3 px-3 ml-3 rounded-xl bg-green-500" href="{% url 'leads_edit' lead.id %}">Edit this Lead</a>
     <a class=" py-3 px-3 ml-3 rounded-xl bg-red-300" href="{% url 'leads_delete' lead.id %}">Delete this Lead</a>
 
