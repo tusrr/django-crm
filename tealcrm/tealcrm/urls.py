@@ -9,6 +9,7 @@ urlpatterns = [
     path('dashboard/leads/',include('leads.urls') ),
     path('dashboard/clients/',include('client.urls') ),
     path('dashboard/my-account/',myaccount, name='myaccount' ),
+    path('dashboard/team/',include('team.urls') ),
     path('dashboard/',include('dashboard.urls') ),
     path('about/',about, name='about' ),
     path('signup/',signup, name='signup' ),

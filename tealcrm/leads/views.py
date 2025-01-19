@@ -55,6 +55,8 @@ def leads_edit(request,pk):
 
 @login_required
 def add_lead(request):
+    team= Team.objects.filter(created_by=request.user)[0]
+
     if request.method =='POST':
         form = AddLeadForm(request.POST)
 
@@ -70,7 +72,7 @@ def add_lead(request):
             return redirect('leads_list')
     else:
         form= AddLeadForm()
-    return render(request, 'leads/add_lead.html',{'form':form})
+    return render(request, 'leads/add_lead.html',{'form':form,'team':team})
 
 
 @login_required

@@ -16,6 +16,13 @@ My Account
     </p>
     <p class="mb-3">
         <strong>Team:</strong> {{team.name}}
+
+        {% if team.created_by == request.user %}
+        <a href="{% url 'edit_team' team.id %}" class="text-blue-500">Edit</a>
+        {% endif %}
+
+
+
     </p>
 
 

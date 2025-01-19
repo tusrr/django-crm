@@ -41,6 +41,8 @@ def clients_edit(request,pk):
 
 @login_required
 def add_client(request):
+    team= Team.objects.filter(created_by=request.user)[0]
+
     if request.method =='POST':
         form = AddClientForm(request.POST)
 
@@ -56,7 +58,7 @@ def add_client(request):
             return redirect('clients_list')
     else:
         form= AddClientForm()
-    return render(request, 'clients/add_client.html',{'form':form})
+    return render(request, 'clients/add_client.html',{'form':form,'team':team})
 
 @login_required
 def client_delete(request,pk):
