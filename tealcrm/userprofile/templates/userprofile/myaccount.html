@@ -18,7 +18,7 @@ My Account
         <strong>Team:</strong> {{team.name}}
 
         {% if team.created_by == request.user %}
-        <a href="{% url 'edit_team' team.id %}" class="text-blue-500">Edit</a>
+        <a href="{% url 'team:edit' team.id %}" class="text-blue-500">Edit</a>
         {% endif %}
 
 
