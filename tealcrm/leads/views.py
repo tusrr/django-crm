@@ -99,7 +99,7 @@ class LeadDeleteView(DeleteView):
 class LeadUpdateView(UpdateView): 
     # specify the model you want to use 
     model = Lead 
-    fields = (' name','email','description','priority','status')
+    fields = ('name','email','description','priority','status')
   
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -243,16 +243,6 @@ class ConvertToClientView(View):
                 created_by=comment.created_by,
                 team=team
            )
-
-
-
-
-
-
-
-
-
-
 
         messages.success(request,'The Lead was converted to Client')
 
