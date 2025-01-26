@@ -25,9 +25,38 @@
 
 
     <a class=" py-3 px-3 ml-3 rounded-xl bg-green-500" href=" {% url 'clients:edit' client.id%} ">Edit this client</a>
-    <a class=" py-3 px-3 ml-3 rounded-xl bg-red-300" href="{% url 'client:delete' client.id %}">Delete this client</a>
+    <a class=" py-3 px-3 ml-3 rounded-xl bg-red-300" href="{% url 'clients:delete' client.id %}">Delete this client</a>
+
+
 
     <hr class="my-4">
+    <h2 class="mb-6 text-xl">Comments</h2>
+    <div class="space-y-4">
+
+        {%for comment in client.comments.all %}
+        <div class="bg-gray-300 px-6 py-6 rounded-xl ">
+            <p><strong>{{comment.created_by}} </strong> @ {{comment.created_at}}</p>
+            {{comment.content}}
+        </div>
+        {% endfor%}
+    </div>
+
+
+
+
+
+    <form action="{% url 'clients:add_comment' client.id %}" method="post">
+        {% csrf_token %}
+
+        {{form.as_p}}
+
+        <button class="py-3 px-3 rounded-xl bg-blue-500">Submit</button>
+
+    </form>
+
+    <hr class="my-4">
+
+
 
 
 
