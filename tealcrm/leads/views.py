@@ -1,4 +1,5 @@
-
+import csv
+from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib import messages
@@ -14,7 +15,22 @@ from django.views.generic.edit import UpdateView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 
-# Create your views here.
+
+
+def leads_export(request):
+    leads= Lead.objects.filter(created_by=request.user)
+
+    # Create the HttpResponse object with the appropriate CSV header.
+    response = HttpResponse(
+        content_type="text/csv",
+        headers={"Content-Disposition": 'attachment; filename="leads_data.csv"'},
+    )
+
+    writer = csv.writer(response)
+    writer.writerow(["Name", "Description", "Status", "Priority", "Converted to client", "created at"])
+    for lead in leads:
+        writer.writerow([lead.name,lead.description,lead.status,lead.priority,lead.converted_to_client,lead.created_at])
+    return response
 
 # @login_required
 # def leads_list(request):

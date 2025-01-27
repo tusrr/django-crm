@@ -12,4 +12,5 @@ urlpatterns = [
     path('<int:pk>/add-comment/', views.AddCommentView.as_view(), name='add_comment'),
     path('<int:pk>/add-file/', views.AddFileView.as_view(), name='add_file'),
     path('add-lead/', views.LeadCreateView.as_view(),name='add'),
+    path('export/', views.leads_export,name='export'),
 ]
