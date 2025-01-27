@@ -4,7 +4,7 @@ from django.utils.decorators import method_decorator
 from django.contrib import messages
 from django.shortcuts import render,redirect, get_object_or_404
 # from .forms import AddLeadForm
-from .forms import AddCommentForm
+from .forms import AddCommentForm,AddFileForm
 from .models import Lead
 from client.models import Client,Comments as ClientComment
 from team.models import Team
@@ -55,7 +55,11 @@ class LeadDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["form"] = AddCommentForm()
+        context["fileform"] = AddFileForm()
+
         return context
+
+    
 
 
     # def get_object(self):
@@ -166,7 +170,29 @@ class LeadCreateView(CreateView):
         self.object.team=team
         self.object.save()
         return redirect(self.get_success_url())
-    
+
+class AddFileView(View):
+    def post(self,request,*args,**kwargs):
+        pk=kwargs.get('pk')
+
+        form = AddFileForm(request.POST,request.FILES)
+        if form.is_valid():
+            team = Team.objects.filter(created_by=self.request.user)[0]
+            file= form.save(commit=False)
+            file.team=team
+            file.lead_id=pk
+            file.created_by=request.user
+            file.save()
+
+        return redirect('leads:detail',pk=pk)
+
+
+
+
+
+
+
+
 
 class AddCommentView(View):
     def post(self,request,*args,**kwargs):

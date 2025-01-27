@@ -10,5 +10,6 @@ urlpatterns = [
     path('<int:pk>/edit/', views.LeadUpdateView.as_view(), name='edit'),
     path('<int:pk>/convert/', views.ConvertToClientView.as_view(), name='convert'),
     path('<int:pk>/add-comment/', views.AddCommentView.as_view(), name='add_comment'),
+    path('<int:pk>/add-file/', views.AddFileView.as_view(), name='add_file'),
     path('add-lead/', views.LeadCreateView.as_view(),name='add'),
 ]
