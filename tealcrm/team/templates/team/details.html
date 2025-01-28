@@ -5,17 +5,21 @@
 {% endblock %}
 {% block content %}
 <div class="px-3 py-6">
-    <h1 class="text-xl mb-3"> Team -{{team.name}}</h1>
+    <h1 class="text-xl mb-6"> Team -{{team.name}}</h1>
+
+    <a href="{% url 'team:list' %}" class="inline-block py-4 px-6 bg-teal-800 rounded-xl text-white">Switch Team</a>
+
+    
+    {% if team.created_by == request.user %}
+    <a href="{% url 'team:edit' team.id %}"
+    class="inline-block py-4 px-6 bg-blue-500 rounded-xl text-white">Edit</a>
+    
+    {% endif %}
+    
     <h4 class="text-xl mb-3"><strong>Team owner :</strong> -{{team.created_by}}</h1>
 
-        {% if team.created_by == request.user %}
-        <a href="{% url 'team:edit' team.id %}" class="text-blue-500">Edit</a>
-
-        {% endif %}
-
-
         <hr class="my-6">
-        <h2 class="font-semibold mt-3">Team Members</h2>
+        <h2 class="font-semibold mt-3">Team Members :</h2>
         {% for member in team.members.all%}
         <p>{{member.username}}</p>
         {% endfor%}

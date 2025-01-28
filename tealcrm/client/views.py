@@ -77,7 +77,7 @@ def clients_list(request):
 @login_required
 def clients_detail(request, pk):
     client = get_object_or_404(Client, created_by=request.user, pk=pk)
-    team = Team.objects.filter(created_by=request.user)[0]
+    
 
     if request.method == 'POST':
         # Check which form was submitted by identifying the button clicked
@@ -85,7 +85,7 @@ def clients_detail(request, pk):
             form = AddCommentForm(request.POST)
             if form.is_valid():
                 comment = form.save(commit=False)
-                comment.team = team
+                comment.team = request.user.userprofile.active_team
                 comment.created_by = request.user
                 comment.client = client
                 comment.save()
@@ -95,7 +95,7 @@ def clients_detail(request, pk):
             fileform = AddFileForm(request.POST, request.FILES)
             if fileform.is_valid():
                 file = fileform.save(commit=False)
-                file.team = team
+                file.team = request.user.userprofile.active_team
                 file.created_by = request.user
                 file.client = client
                 file.save()
@@ -158,7 +158,7 @@ def clients_edit(request,pk):
 
 @login_required
 def clients_add(request):
-    team= Team.objects.filter(created_by=request.user)[0]
+   
 
     if request.method =='POST':
         form = AddClientForm(request.POST)
@@ -167,7 +167,7 @@ def clients_add(request):
             team= Team.objects.filter(created_by=request.user).first()
             client = form.save(commit = False)
             client.created_by = request.user
-            client.team = team
+            client.team = request.user.userprofile.active_teameam
             client.save()
 
             messages.success(request,'New Client was created')

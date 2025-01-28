@@ -15,14 +15,19 @@ My Account
         <strong>Email:</strong> {{request.user.email}}
     </p>
     <p class="mb-3">
+        {% if active_team %}
         <strong>Team Name:</strong>
-        <a href="{% url 'team:detail' team.id %}" class="text-green-500"> {{team.name}}</a>
-       
+        <a href="{% url 'team:detail' active_team.id %}" class="text-green-500"> {{active_team.name}}</a>
 
-        {% if team.created_by == request.user %}
-             <a href="{% url 'team:edit' team.id %}" class="text-blue-500">Edit</a>
+
+        {% if active_team.created_by == request.user %}
+        <a href="{% url 'team:edit' active_team.id %}" class="text-blue-500">Edit</a>
 
         {% endif %}
+        {% else %}
+        <a href="{% url 'team:list'%}" class="text-blue-500">Select Team</a>
+        {% endif %}
+
 
 
 

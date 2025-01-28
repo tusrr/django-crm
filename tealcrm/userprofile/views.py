@@ -20,7 +20,7 @@ def signup(request):
 
 
 
-            Userprofile.objects.create(user=user)
+            Userprofile.objects.create(user=user,active_team = team)
 
 
 
@@ -34,8 +34,7 @@ def signup(request):
 
 @login_required
 def myaccount(request):
-    team= Team.objects.filter(created_by=request.user)[0]
-    return render(request,'userprofile/myaccount.html',{'team':team})
+    return render(request,'userprofile/myaccount.html')
 
 
 
