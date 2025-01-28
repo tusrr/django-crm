@@ -45,9 +45,9 @@ class LeadListView(LoginRequiredMixin,ListView):
     context_object_name = 'leads'
 
     
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super().dispatch(*args, **kwargs)
+    # @method_decorator(login_required)
+    # def dispatch(self, *args, **kwargs):
+    #     return super().dispatch(*args, **kwargs)
 
     def get_queryset(self):
         return Lead.objects.filter(created_by=self.request.user,converted_to_client=False)
@@ -60,13 +60,13 @@ class LeadListView(LoginRequiredMixin,ListView):
 
 #     return render(request,'leads/leads_detail.html',{'lead':lead})
 
-class LeadDetailView(DetailView):
+class LeadDetailView(LoginRequiredMixin,DetailView):
     model = Lead
     template_name = "leads/leads_detail.html"
 
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super().dispatch(*args, **kwargs)
+    # @method_decorator(login_required)
+    # def dispatch(self, *args, **kwargs):
+    #     return super().dispatch(*args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -98,13 +98,13 @@ class LeadDetailView(DetailView):
 
 #     return redirect('leads:list')
 
-class LeadDeleteView(DeleteView):
+class LeadDeleteView(LoginRequiredMixin,DeleteView):
     model = Lead
     success_url = reverse_lazy('leads:list')
 
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super().dispatch(*args, **kwargs)
+    # @method_decorator(login_required)
+    # def dispatch(self, *args, **kwargs):
+    #     return super().dispatch(*args, **kwargs)
 
     # def get_queryset(self):
     #      queryset = super(LeadDeleteView, self).get_queryset()
@@ -116,14 +116,14 @@ class LeadDeleteView(DeleteView):
         
         
 
-class LeadUpdateView(UpdateView): 
+class LeadUpdateView(LoginRequiredMixin,UpdateView): 
     # specify the model you want to use 
     model = Lead 
     fields = ('name','email','description','priority','status')
   
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super().dispatch(*args, **kwargs)
+    # @method_decorator(login_required)
+    # def dispatch(self, *args, **kwargs):
+    #     return super().dispatch(*args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -156,14 +156,14 @@ class LeadUpdateView(UpdateView):
 #     return render(request, 'leads/leads_edit.html',{'form':form})
 
 
-class LeadCreateView(CreateView):
+class LeadCreateView(LoginRequiredMixin,CreateView):
     model = Lead
     fields = ('name','email','description','priority','status')
     # template_name='leads/add_lead.html'	
 
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super().dispatch(*args, **kwargs)
+    # @method_decorator(login_required)
+    # def dispatch(self, *args, **kwargs):
+    #     return super().dispatch(*args, **kwargs)
 
     success_url = reverse_lazy("leads:list")
 

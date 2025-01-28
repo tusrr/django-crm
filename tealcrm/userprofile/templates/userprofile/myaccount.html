@@ -15,10 +15,13 @@ My Account
         <strong>Email:</strong> {{request.user.email}}
     </p>
     <p class="mb-3">
-        <strong>Team:</strong> {{team.name}}
+        <strong>Team Name:</strong>
+        <a href="{% url 'team:detail' team.id %}" class="text-green-500"> {{team.name}}</a>
+       
 
         {% if team.created_by == request.user %}
-        <a href="{% url 'team:edit' team.id %}" class="text-blue-500">Edit</a>
+             <a href="{% url 'team:edit' team.id %}" class="text-blue-500">Edit</a>
+
         {% endif %}
 
 

@@ -4,10 +4,12 @@
 Sign up
 {% endblock %}
 {% block content %}
-<h1 class="text-xl mb-3">Sign up</h1>
+<h1 class="text-xl mb-6 px-6 py-6">Sign up</h1>
+<div style="display: flex; justify-content: center; align-items: center;">
 <form action="." method="post">
     {% csrf_token %}
     {{form.as_p}}
     <button class="py-4 px-8 bg-teal-500 text-white rounded-xl">Submit</button>
+</div>
 </form>
 {% endblock %}
