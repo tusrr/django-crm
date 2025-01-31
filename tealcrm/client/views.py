@@ -158,24 +158,23 @@ def clients_edit(request,pk):
 
 @login_required
 def clients_add(request):
-   
-
+    user_profile = getattr(request.user, 'userprofile', None)
+    active_team = user_profile.active_team if user_profile and user_profile.active_team else Team.objects.filter(created_by=request.user).first()
     if request.method =='POST':
         form = AddClientForm(request.POST)
 
         if form.is_valid():
-            team= Team.objects.filter(created_by=request.user).first()
+            # team = self.request.user.userprofile.active_team
             client = form.save(commit = False)
             client.created_by = request.user
-            client.team = request.user.userprofile.active_teameam
+            client.team = active_team
             client.save()
 
             messages.success(request,'New Client was created')
-
             return redirect('clients:list')
     else:
         form= AddClientForm()
-    return render(request, 'clients/client_add.html',{'form':form,'team':team})
+    return render(request, 'clients/client_add.html',{'form':form,'active_team':active_team})
 
 @login_required
 def client_delete(request,pk):

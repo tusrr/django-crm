@@ -261,7 +261,7 @@ class AddCommentView(LoginRequiredMixin,View):
 class ConvertToClientView(LoginRequiredMixin,View):
     def get(self,request,pk):
         lead =get_object_or_404(Lead,created_by=request.user,pk=pk)
-        team= self.request.user.userprofile.active_team
+        team = self.request.user.userprofile.active_team
 
         client=Client.objects.create(
             name=lead.name,

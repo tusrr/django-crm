@@ -6,11 +6,11 @@ Add Lead
 {% block content %}
 
 <h1 class="text-xl mb-3">Add Client</h1>
-my Plan : {{team.plan.name}} <br>
-max_clients in this plan : {{team.plan.max_clients}} <br>
-total client in my account : {{team.clients.count}} <br>
+my Plan : {{active_team.plan.name}} <br>
+max_clients in this plan : {{active_team.plan.max_clients}} <br>
+total client in my account : {{active_team.clients.count}} <br>
 
-{% if team.plan.max_clients > team.clients.count %}
+{% if active_team.plan.max_clients > active_team.clients.count %}
 <div class="px-3 py-6">
 
     <form method="POST" action="." class="space-y-3">
